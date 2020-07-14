@@ -4,6 +4,7 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+const constraint = Matter.constraint;
 
 function preload(){}
  
@@ -16,6 +17,7 @@ function setup() {
   ball = new Ball (width/4,height-60,50)
   basketLeft = new Basket (width-250,height-190,20,300)
   basketRight = new Basket (width-0,height-190,20,300)
+  launcher = new Launcher (ball.body,{x:200,y:200})
   
 }
 
@@ -26,11 +28,21 @@ function draw() {
   basketLeft.display();
   basketRight.display();
   ball.display();
+  launcher.display();
 }
-function keyPressed(){
-  if(keyCode === UP_ARROW) {
-    Matter.Body.applyForce(ball.body,ball.body.position,{x:335,y:-585});
-  }
+// function keyPressed(){
+//   if(keyCode === UP_ARROW) {
+//     Matter.Body.applyForce(ball.body,ball.body.position,{x:335,y:-585});
+//   }
+// }
+
+function mouseDragged (){
+  Matter.Body.setPosition(ball.body,{x:mouseX,y:mouseY})
+}
+
+
+function mouseReleased (){
+  launcher.fly();
 }
 
 
